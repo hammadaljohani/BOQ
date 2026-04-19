@@ -4,7 +4,6 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>عرض سعر مقاول – تجديد شقة</title>
-<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700&display=swap" rel="stylesheet">
 <style>
   :root {
     --bg: #F5F2EE;
@@ -19,14 +18,271 @@
     --error: #C0392B;
   }
   * { box-sizing: border-box; margin: 0; padding: 0; }
-  body { font-family: 'Tajawal', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; padding-bottom: 60px; direction: rtl; }
-  .hero { background: var(--primary); padding: 36px 24px 28px; position: relative; overflow: hidden; text-align: right; }
-  .hero::before { content: ''; position: absolute; top: -40px; left: -40px; width: 180px; height: 180px; border-radius: 50%; background: rgba(200,169,110,0.12); }
+  body {
+    font-family: 'Segoe UI', Tahoma, Arial, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    padding-bottom: 60px;
+    direction: rtl;
+  }
+  .hero {
+    background: var(--primary);
+    padding: 36px 24px 28px;
+    position: relative;
+    overflow: hidden;
+    text-align: right;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -40px; left: -40px;
+    width: 180px; height: 180px;
+    border-radius: 50%;
+    background: rgba(200,169,110,0.12);
+  }
   .hero-label { font-size: 12px; font-weight: 700; color: var(--accent); margin-bottom: 10px; }
   .hero h1 { font-size: 26px; font-weight: 700; color: #fff; line-height: 1.4; margin-bottom: 10px; }
   .hero p { font-size: 13px; color: rgba(255,255,255,0.6); line-height: 1.8; }
-  .info-card { background: var(--card); margin: 20px 16px 0; border-radius: 14px; padding: 20px; border: 1px solid var(--border); box-shadow: 0 2px 12px rgba(0,0,0,0.05); }
+  .info-card {
+    background: var(--card);
+    margin: 20px 16px 0;
+    border-radius: 14px;
+    padding: 20px;
+    border: 1px solid var(--border);
+    box-shadow: 0 2px 12px rgba(0,0,0,0.05);
+  }
   .info-card h2 { font-size: 17px; font-weight: 700; color: var(--primary); margin-bottom: 16px; padding-bottom: 10px; border-bottom: 1px solid var(--border); }
   .field-group { margin-bottom: 14px; }
   .field-group label { display: block; font-size: 12px; font-weight: 700; color: var(--muted); margin-bottom: 6px; }
-  .field-group input { width: 100%; padding: 11px 14px; border: 1.5px solid var(--border); border-radius: 8px; background: var(--input-bg); font-family: 'Tajawal', sans-serif; font-size: 15px; color: var(--text); text-align: right; direction: rtl; transition: border-color 0.2s; -webkit-appearance: none; }​​​​​​​​​​​​​​​​
+  .field-group input {
+    width: 100%; padding: 11px 14px;
+    border: 1.5px solid var(--border); border-radius: 8px;
+    background: var(--input-bg);
+    font-family: 'Segoe UI', Tahoma, Arial, sans-serif; font-size: 15px; color: var(--text);
+    text-align: right; direction: rtl;
+    transition: border-color 0.2s; -webkit-appearance: none;
+  }
+  .field-group input:focus { outline: none; border-color: var(--accent); }
+  .field-group input.error { border-color: var(--error); }
+  .phase-header {
+    margin: 24px 16px 0; padding: 18px 20px;
+    border-radius: 14px 14px 0 0;
+    position: relative; overflow: hidden; text-align: right;
+  }
+  .phase-header.p1 { background: var(--primary); }
+  .phase-header.p2 { background: var(--phase2); }
+  .phase-tag { font-size: 11px; font-weight: 700; color: var(--accent); margin-bottom: 4px; }
+  .phase-header h2 { font-size: 20px; font-weight: 700; color: #fff; }
+  .phase-header p { font-size: 12px; color: rgba(255,255,255,0.55); margin-top: 4px; }
+  .phase-body {
+    background: var(--card);
+    margin: 0 16px;
+    border-radius: 0 0 14px 14px;
+    border: 1px solid var(--border); border-top: none;
+    overflow: hidden;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.06);
+  }
+  .section-label {
+    padding: 12px 20px; font-size: 11px; font-weight: 700;
+    color: var(--muted); background: #F9F7F4;
+    border-bottom: 1px solid var(--border); border-top: 1px solid var(--border);
+    text-align: right;
+  }
+  .item-row {
+    display: flex; align-items: flex-start;
+    padding: 14px 20px; border-bottom: 1px solid var(--border); gap: 10px;
+  }
+  .item-row:last-child { border-bottom: none; }
+  .item-number {
+    width: 26px; height: 26px; min-width: 26px;
+    border-radius: 50%; background: var(--bg); border: 1.5px solid var(--border);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 11px; font-weight: 700; color: var(--muted); margin-top: 3px;
+  }
+  .item-text { flex: 1; text-align: right; }
+  .item-text .name { font-size: 14px; font-weight: 600; color: var(--text); line-height: 1.5; }
+  .item-text .details { font-size: 12px; color: var(--muted); margin-top: 4px; line-height: 1.7; }
+  .item-text .unit-tag {
+    display: inline-block; margin-top: 5px;
+    font-size: 11px; font-weight: 600; color: var(--accent);
+    background: rgba(200,169,110,0.1); border-radius: 20px; padding: 2px 10px;
+  }
+  .price-col { display: flex; flex-direction: column; align-items: center; gap: 3px; min-width: 86px; }
+  .price-col .currency-label { font-size: 10px; font-weight: 700; color: var(--muted); }
+  .price-col input {
+    width: 86px; padding: 9px 6px;
+    border: 1.5px solid var(--border); border-radius: 8px;
+    background: var(--input-bg);
+    font-family: 'Segoe UI', Tahoma, Arial, sans-serif; font-size: 14px; font-weight: 700; color: var(--text);
+    text-align: center; -webkit-appearance: none; transition: border-color 0.2s;
+  }
+  .price-col input:focus { outline: none; border-color: var(--accent); }
+  .price-col .sar-hint { font-size: 10px; color: var(--muted); text-align: center; }
+  .total-bar {
+    margin: 16px 16px 0; background: var(--card);
+    border: 1px solid var(--border); border-radius: 12px;
+    padding: 16px 20px; display: flex; justify-content: space-between; align-items: center;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.04);
+  }
+  .total-bar .label { font-size: 13px; font-weight: 700; color: var(--muted); }
+  .total-bar .amount { font-size: 22px; font-weight: 700; color: var(--primary); }
+  .notes-card { background: var(--card); margin: 20px 16px 0; border-radius: 14px; padding: 20px; border: 1px solid var(--border); }
+  .notes-card label { display: block; font-size: 12px; font-weight: 700; color: var(--muted); margin-bottom: 8px; }
+  .notes-card textarea {
+    width: 100%; padding: 12px 14px;
+    border: 1.5px solid var(--border); border-radius: 8px;
+    background: var(--input-bg);
+    font-family: 'Segoe UI', Tahoma, Arial, sans-serif; font-size: 14px; color: var(--text);
+    resize: vertical; min-height: 80px; text-align: right; direction: rtl; -webkit-appearance: none;
+  }
+  .notes-card textarea:focus { outline: none; border-color: var(--accent); }
+  .submit-wrap { margin: 24px 16px 0; }
+  .submit-btn {
+    width: 100%; padding: 17px; background: var(--primary); color: #fff;
+    border: none; border-radius: 12px;
+    font-family: 'Segoe UI', Tahoma, Arial, sans-serif; font-size: 17px; font-weight: 700; cursor: pointer;
+    display: flex; align-items: center; justify-content: center; gap: 10px;
+    transition: background 0.2s, transform 0.1s;
+    box-shadow: 0 4px 16px rgba(26,46,26,0.25);
+  }
+  .submit-btn:active { transform: scale(0.98); background: #2a4a2a; }
+  .submit-btn svg { width: 20px; height: 20px; fill: #fff; }
+  .footer-note { text-align: center; font-size: 12px; color: var(--muted); margin-top: 14px; padding: 0 20px; line-height: 1.8; }
+  .error-msg {
+    display: none; background: #FDF0EF; border: 1px solid #E8B4B0;
+    border-radius: 10px; padding: 12px 16px; margin: 16px 16px 0;
+    font-size: 13px; color: var(--error); text-align: center;
+  }
+  .error-msg.show { display: block; }
+</style>
+</head>
+<body>
+<div class="hero">
+  <div class="hero-label">جدول الكميات – عرض سعر</div>
+  <h1>تجديد وتقسيم شقة<br>طلب عروض أسعار</h1>
+  <p>يرجى تعبئة الأسعار لكل بند أدناه<br>ثم الإرسال عبر البريد الإلكتروني</p>
+</div>
+<div class="info-card">
+  <h2>بيانات المقاول</h2>
+  <div class="field-group"><label>الاسم الكامل</label><input type="text" id="contractor-name" placeholder="مثال: أحمد الجوهاني" inputmode="text"></div>
+  <div class="field-group"><label>اسم الشركة (اختياري)</label><input type="text" id="contractor-company" placeholder="مثال: شركة الجوهاني للمقاولات"></div>
+  <div class="field-group"><label>رقم الجوال</label><input type="tel" id="contractor-phone" placeholder="05XXXXXXXX" inputmode="tel"></div>
+</div>
+<div class="phase-header p1">
+  <div class="phase-tag">المرحلة الأولى</div>
+  <h2>أعمال الهدم والبناء</h2>
+  <p>يرجى تقديم مبلغ إجمالي (مقطوع) لكل بند</p>
+</div>
+<div class="phase-body">
+  <div class="section-label">أ — أعمال الهدم والإزالة (مبلغ مقطوع)</div>
+  <div class="item-row">
+    <div class="price-col"><span class="currency-label">ريال</span><input type="number" inputmode="decimal" placeholder="0" data-item="p1-removal" data-label="أعمال الهدم والإزالة العامة" data-unit="مقطوع"><span class="sar-hint">مقطوع</span></div>
+    <div class="item-text"><div class="name">أعمال الهدم والإزالة العامة</div><div class="details">• وحدة واحدة في السطح<br>• توسيع ٢٨ نافذة<br>• هدم ١٠ جدران بإجمالي ٣٠ متر</div><span class="unit-tag">مبلغ مقطوع</span></div>
+    <div class="item-number">١</div>
+  </div>
+  <div class="item-row">
+    <div class="price-col"><span class="currency-label">ريال</span><input type="number" inputmode="decimal" placeholder="0" data-item="p1-tiles" data-label="إزالة البلاط وجدران الواجهات وأعمال الجبس" data-unit="مقطوع"><span class="sar-hint">مقطوع</span></div>
+    <div class="item-text"><div class="name">إزالة بلاط الأرضيات وجدران الواجهات وأعمال الجبس</div><span class="unit-tag">مبلغ مقطوع</span></div>
+    <div class="item-number">٢</div>
+  </div>
+  <div class="item-row">
+    <div class="price-col"><span class="currency-label">ريال</span><input type="number" inputmode="decimal" placeholder="0" data-item="p1-containers" data-label="حاويات وترحيل المخلفات" data-unit="مقطوع"><span class="sar-hint">مقطوع</span></div>
+    <div class="item-text"><div class="name">حاويات وترحيل المخلفات</div><span class="unit-tag">مبلغ مقطوع</span></div>
+    <div class="item-number">٣</div>
+  </div>
+  <div class="section-label">ب — أعمال البناء (مبلغ مقطوع)</div>
+  <div class="item-row">
+    <div class="price-col"><span class="currency-label">ريال</span><input type="number" inputmode="decimal" placeholder="0" data-item="p1-build" data-label="أعمال البناء والتشييد" data-unit="مقطوع"><span class="sar-hint">مقطوع</span></div>
+    <div class="item-text"><div class="name">أعمال البناء والتشييد</div><div class="details">• وحدتان في السطح – مساحة كل وحدة ٩٠ م²<br>• وحدتان في الدور الأرضي – مساحة كل وحدة ٩ م²<br>• بناء ١٠ جدران بإجمالي ٣٢ متر</div><span class="unit-tag">مبلغ مقطوع</span></div>
+    <div class="item-number">٤</div>
+  </div>
+</div>
+<div class="total-bar"><div class="label">إجمالي المرحلة الأولى</div><div class="amount" id="total-p1">٠ ريال</div></div>
+<div class="phase-header p2" style="margin-top:28px;">
+  <div class="phase-tag">المرحلة الثانية</div>
+  <h2>أعمال التشطيب</h2>
+  <p>يرجى تقديم السعر حسب وحدة القياس لكل بند</p>
+</div>
+<div class="phase-body">
+  <div class="section-label">بنود التشطيب – السعر حسب وحدة القياس</div>
+  <div class="item-row"><div class="price-col"><span class="currency-label">ريال</span><input type="number" inputmode="decimal" placeholder="0" data-item="p2-1" data-label="تبليط جدران حمامات ومطابخ" data-unit="م²"><span class="sar-hint">/ م²</span></div><div class="item-text"><div class="name">تبليط جدران حمامات ومطابخ</div><span class="unit-tag">سعر / م²</span></div><div class="item-number">١</div></div>
+  <div class="item-row"><div class="price-col"><span class="currency-label">ريال</span><input type="number" inputmode="decimal" placeholder="0" data-item="p2-2" data-label="أعمال السباكة – تمديد وتركيب" data-unit="لكل حمام/مطبخ"><span class="sar-hint">/ حمام</span></div><div class="item-text"><div class="name">أعمال السباكة – تمديد وتركيب</div><span class="unit-tag">سعر / حمام أو مطبخ</span></div><div class="item-number">٢</div></div>
+  <div class="item-row"><div class="price-col"><span class="currency-label">ريال</span><input type="number" inputmode="decimal" placeholder="0" data-item="p2-3" data-label="عزل حمامات وخزانات" data-unit="م²"><span class="sar-hint">/ م²</span></div><div class="item-text"><div class="name">عزل حمامات / خزانات</div><span class="unit-tag">سعر / م²</span></div><div class="item-number">٣</div></div>
+  <div class="item-row"><div class="price-col"><span class="currency-label">ريال</span><input type="number" inputmode="decimal" placeholder="0" data-item="p2-4" data-label="أعمال الجبس والأسقف المستعارة" data-unit="م²"><span class="sar-hint">/ م²</span></div><div class="item-text"><div class="name">أعمال الجبس والأسقف المستعارة</div><span class="unit-tag">سعر / م²</span></div><div class="item-number">٤</div></div>
+  <div class="item-row"><div class="price-col"><span class="currency-label">ريال</span><input type="number" inputmode="decimal" placeholder="0" data-item="p2-5" data-label="كهرباء – أفياش وإنارة وتعديلات" data-unit="لكل شقة"><span class="sar-hint">/ شقة</span></div><div class="item-text"><div class="name">كهرباء – أفياش وإنارة وتعديلات</div><span class="unit-tag">سعر / شقة</span></div><div class="item-number">٥</div></div>
+  <div class="item-row"><div class="price-col"><span class="currency-label">ريال</span><input type="number" inputmode="decimal" placeholder="0" data-item="p2-6" data-label="دهان داخلي" data-unit="م²"><span class="sar-hint">/ م²</span></div><div class="item-text"><div class="name">دهان داخلي</div><span class="unit-tag">سعر / م²</span></div><div class="item-number">٦</div></div>
+  <div class="item-row"><div class="price-col"><span class="currency-label">ريال</span><input type="number" inputmode="decimal" placeholder="0" data-item="p2-7" data-label="دهان خارجي بروفايل" data-unit="م²"><span class="sar-hint">/ م²</span></div><div class="item-text"><div class="name">دهان خارجي بروفايل</div><span class="unit-tag">سعر / م²</span></div><div class="item-number">٧</div></div>
+  <div class="item-row"><div class="price-col"><span class="currency-label">ريال</span><input type="number" inputmode="decimal" placeholder="0" data-item="p2-8" data-label="تصليح الدرج والدرابزين" data-unit="متر طولي"><span class="sar-hint">/ م طولي</span></div><div class="item-text"><div class="name">تصليح الدرج والدرابزين</div><span class="unit-tag">سعر / متر طولي</span></div><div class="item-number">٨</div></div>
+  <div class="item-row"><div class="price-col"><span class="currency-label">ريال</span><input type="number" inputmode="decimal" placeholder="0" data-item="p2-9" data-label="تأسيس وتمديدات مكيفات شباك/سبليت" data-unit="لكل مكيف"><span class="sar-hint">/ مكيف</span></div><div class="item-text"><div class="name">تأسيس وتمديدات مكيفات شباك / سبليت</div><span class="unit-tag">سعر / مكيف</span></div><div class="item-number">٩</div></div>
+  <div class="item-row"><div class="price-col"><span class="currency-label">ريال</span><input type="number" inputmode="decimal" placeholder="0" data-item="p2-10" data-label="لياسة داخلية وخارجية" data-unit="م²"><span class="sar-hint">/ م²</span></div><div class="item-text"><div class="name">لياسة داخلية وخارجية</div><span class="unit-tag">سعر / م²</span></div><div class="item-number">١٠</div></div>
+  <div class="item-row"><div class="price-col"><span class="currency-label">ريال</span><input type="number" inputmode="decimal" placeholder="0" data-item="p2-11" data-label="تركيب حجر/رخام واجهة" data-unit="م²"><span class="sar-hint">/ م²</span></div><div class="item-text"><div class="name">تركيب حجر / رخام واجهة</div><span class="unit-tag">سعر / م²</span></div><div class="item-number">١١</div></div>
+  <div class="item-row"><div class="price-col"><span class="currency-label">ريال</span><input type="number" inputmode="decimal" placeholder="0" data-item="p2-12" data-label="تركيب البلاط والرخام (أرضيات)" data-unit="م²"><span class="sar-hint">/ م²</span></div><div class="item-text"><div class="name">تركيب البلاط والرخام (أرضيات)</div><span class="unit-tag">سعر / م²</span></div><div class="item-number">١٢</div></div>
+  <div class="item-row"><div class="price-col"><span class="currency-label">ريال</span><input type="number" inputmode="decimal" placeholder="0" data-item="p2-13" data-label="عزل الأسطح" data-unit="م²"><span class="sar-hint">/ م²</span></div><div class="item-text"><div class="name">عزل الأسطح</div><span class="unit-tag">سعر / م²</span></div><div class="item-number">١٣</div></div>
+  <div class="item-row"><div class="price-col"><span class="currency-label">ريال</span><input type="number" inputmode="decimal" placeholder="0" data-item="p2-14" data-label="تمديدات الصرف الصحي" data-unit="متر طولي"><span class="sar-hint">/ م طولي</span></div><div class="item-text"><div class="name">تمديدات الصرف الصحي</div><span class="unit-tag">سعر / متر طولي</span></div><div class="item-number">١٤</div></div>
+  <div class="item-row"><div class="price-col"><span class="currency-label">ريال</span><input type="number" inputmode="decimal" placeholder="0" data-item="p2-15" data-label="أعمال الألمنيوم للشبابيك" data-unit="لكل شباك"><span class="sar-hint">/ شباك</span></div><div class="item-text"><div class="name">أعمال الألمنيوم للشبابيك</div><span class="unit-tag">سعر / شباك</span></div><div class="item-number">١٥</div></div>
+</div>
+<div class="total-bar"><div class="label">إجمالي المرحلة الثانية</div><div class="amount" id="total-p2">٠ ريال</div></div>
+<div class="notes-card">
+  <label>ملاحظات إضافية / شروط (اختياري)</label>
+  <textarea id="notes" placeholder="مثال: السعر يشمل العمالة فقط – المواد على حساب صاحب العمل..."></textarea>
+</div>
+<div class="error-msg" id="error-msg">يرجى تعبئة الاسم ورقم الجوال قبل الإرسال.</div>
+<div class="submit-wrap">
+  <button class="submit-btn" onclick="submitViaEmail()">
+    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="white"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+    إرسال عرض السعر بالبريد الإلكتروني
+  </button>
+  <p class="footer-note">بالضغط على الزر سيفتح تطبيق البريد الإلكتروني<br>مع تعبئة جميع البيانات جاهزة للإرسال</p>
+</div>
+<script>
+  function updateTotals() {
+    let p1 = 0, p2 = 0;
+    document.querySelectorAll('[data-item^="p1-"]').forEach(el => { p1 += parseFloat(el.value) || 0; });
+    document.querySelectorAll('[data-item^="p2-"]').forEach(el => { p2 += parseFloat(el.value) || 0; });
+    document.getElementById('total-p1').textContent = p1.toLocaleString('ar-SA') + ' ريال';
+    document.getElementById('total-p2').textContent = p2.toLocaleString('ar-SA') + ' ريال';
+  }
+  document.querySelectorAll('input[type="number"]').forEach(el => { el.addEventListener('input', updateTotals); });
+  function submitViaEmail() {
+    const name = document.getElementById('contractor-name').value.trim();
+    const company = document.getElementById('contractor-company').value.trim();
+    const phone = document.getElementById('contractor-phone').value.trim();
+    const notes = document.getElementById('notes').value.trim();
+    const errEl = document.getElementById('error-msg');
+    let valid = true;
+    if (!name) { document.getElementById('contractor-name').classList.add('error'); valid = false; }
+    else document.getElementById('contractor-name').classList.remove('error');
+    if (!phone) { document.getElementById('contractor-phone').classList.add('error'); valid = false; }
+    else document.getElementById('contractor-phone').classList.remove('error');
+    if (!valid) { errEl.classList.add('show'); errEl.scrollIntoView({behavior:'smooth'}); return; }
+    errEl.classList.remove('show');
+    let p1Total = 0, p2Total = 0, p1Lines = '', p2Lines = '';
+    document.querySelectorAll('[data-item^="p1-"]').forEach(el => {
+      const val = parseFloat(el.value) || 0;
+      const formatted = val > 0 ? val.toLocaleString('en-US') + ' SAR' : '(لم يُعبَّأ)';
+      p1Lines += `  - ${el.getAttribute('data-label')}: ${formatted}\n`;
+      p1Total += val;
+    });
+    document.querySelectorAll('[data-item^="p2-"]').forEach(el => {
+      const val = parseFloat(el.value) || 0;
+      const formatted = val > 0 ? val.toLocaleString('en-US') + ` SAR / ${el.getAttribute('data-unit')}` : '(لم يُعبَّأ)';
+      p2Lines += `  - ${el.getAttribute('data-label')}: ${formatted}\n`;
+      p2Total += val;
+    });
+    const subject = `عرض سعر مقاول – ${name}${company ? ' (' + company + ')' : ''}`;
+    let body = `عرض سعر مقاول – تجديد وتقسيم شقة\n=====================================\n\n`;
+    body += `الاسم: ${name}\n`;
+    if (company) body += `الشركة: ${company}\n`;
+    body += `الجوال: ${phone}\n\n`;
+    body += `-------------------------------------\nالمرحلة الأولى – أعمال الهدم والبناء\n-------------------------------------\n\n`;
+    body += p1Lines + `\nالإجمالي: ${p1Total.toLocaleString('en-US')} SAR\n\n`;
+    body += `-------------------------------------\nالمرحلة الثانية – أعمال التشطيب\n-------------------------------------\n\n`;
+    body += p2Lines + `\nمجموع الأسعار: ${p2Total.toLocaleString('en-US')} SAR\n\n`;
+    if (notes) body += `-------------------------------------\nملاحظات:\n${notes}\n\n`;
+    body += `=====================================\nتم الإرسال عبر نموذج عروض الأسعار الإلكتروني`;
+    window.location.href = `mailto:Hammad.Aljohani@hotmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+  }
+</script>
+</body>
+</html>
