@@ -139,14 +139,14 @@
   .notes-card textarea:focus { outline: none; border-color: var(--accent); }
   .submit-wrap { margin: 24px 16px 0; }
   .submit-btn {
-    width: 100%; padding: 17px; background: var(--primary); color: #fff;
+    width: 100%; padding: 17px; background: #25D366; color: #fff;
     border: none; border-radius: 12px;
     font-family: 'Segoe UI', Tahoma, Arial, sans-serif; font-size: 17px; font-weight: 700; cursor: pointer;
     display: flex; align-items: center; justify-content: center; gap: 10px;
     transition: background 0.2s, transform 0.1s;
-    box-shadow: 0 4px 16px rgba(26,46,26,0.25);
+    box-shadow: 0 4px 16px rgba(37,211,102,0.3);
   }
-  .submit-btn:active { transform: scale(0.98); background: #2a4a2a; }
+  .submit-btn:active { transform: scale(0.98); background: #1EBD5A; }
   .submit-btn svg { width: 20px; height: 20px; fill: #fff; }
   .footer-note { text-align: center; font-size: 12px; color: var(--muted); margin-top: 14px; padding: 0 20px; line-height: 1.8; }
   .error-msg {
@@ -161,7 +161,7 @@
 <div class="hero">
   <div class="hero-label">جدول الكميات – عرض سعر</div>
   <h1>تجديد وتقسيم شقة<br>طلب عروض أسعار</h1>
-  <p>يرجى تعبئة الأسعار لكل بند أدناه<br>ثم الإرسال عبر البريد الإلكتروني</p>
+  <p>يرجى تعبئة الأسعار لكل بند أدناه<br>ثم الإرسال عبر واتساب</p>
 </div>
 <div class="info-card">
   <h2>بيانات المقاول</h2>
@@ -229,11 +229,11 @@
 </div>
 <div class="error-msg" id="error-msg">يرجى تعبئة الاسم ورقم الجوال قبل الإرسال.</div>
 <div class="submit-wrap">
-  <button class="submit-btn" onclick="submitViaEmail()">
-    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="white"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
-    إرسال عرض السعر بالبريد الإلكتروني
+  <button class="submit-btn" onclick="submitViaWhatsApp()">
+    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.126.554 4.122 1.522 5.855L0 24l6.335-1.507A11.95 11.95 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.807 9.807 0 01-5.001-1.368l-.358-.213-3.762.895.952-3.653-.234-.374A9.817 9.817 0 012.182 12C2.182 6.57 6.57 2.182 12 2.182S21.818 6.57 21.818 12 17.43 21.818 12 21.818z"/></svg>
+    إرسال عرض السعر عبر واتساب
   </button>
-  <p class="footer-note">بالضغط على الزر سيفتح تطبيق البريد الإلكتروني<br>مع تعبئة جميع البيانات جاهزة للإرسال</p>
+  <p class="footer-note">بالضغط على الزر سيفتح واتساب<br>مع تعبئة جميع البيانات جاهزة للإرسال</p>
 </div>
 <script>
   function updateTotals() {
@@ -244,7 +244,8 @@
     document.getElementById('total-p2').textContent = p2.toLocaleString('ar-SA') + ' ريال';
   }
   document.querySelectorAll('input[type="number"]').forEach(el => { el.addEventListener('input', updateTotals); });
-  function submitViaEmail() {
+
+  function submitViaWhatsApp() {
     const name = document.getElementById('contractor-name').value.trim();
     const company = document.getElementById('contractor-company').value.trim();
     const phone = document.getElementById('contractor-phone').value.trim();
@@ -270,18 +271,24 @@
       p2Lines += `  - ${el.getAttribute('data-label')}: ${formatted}\n`;
       p2Total += val;
     });
-    const subject = `عرض سعر مقاول – ${name}${company ? ' (' + company + ')' : ''}`;
-    let body = `عرض سعر مقاول – تجديد وتقسيم شقة\n=====================================\n\n`;
-    body += `الاسم: ${name}\n`;
-    if (company) body += `الشركة: ${company}\n`;
-    body += `الجوال: ${phone}\n\n`;
-    body += `-------------------------------------\nالمرحلة الأولى – أعمال الهدم والبناء\n-------------------------------------\n\n`;
-    body += p1Lines + `\nالإجمالي: ${p1Total.toLocaleString('en-US')} SAR\n\n`;
-    body += `-------------------------------------\nالمرحلة الثانية – أعمال التشطيب\n-------------------------------------\n\n`;
-    body += p2Lines + `\nمجموع الأسعار: ${p2Total.toLocaleString('en-US')} SAR\n\n`;
-    if (notes) body += `-------------------------------------\nملاحظات:\n${notes}\n\n`;
-    body += `=====================================\nتم الإرسال عبر نموذج عروض الأسعار الإلكتروني`;
-    window.location.href = `mailto:Hammad.Aljohani@hotmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    let msg = `🏗️ عرض سعر مقاول – تجديد وتقسيم شقة\n`;
+    msg += `=====================================\n\n`;
+    msg += `👤 الاسم: ${name}\n`;
+    if (company) msg += `🏢 الشركة: ${company}\n`;
+    msg += `📞 الجوال: ${phone}\n\n`;
+    msg += `-------------------------------------\n`;
+    msg += `📋 المرحلة الأولى – أعمال الهدم والبناء\n`;
+    msg += `-------------------------------------\n\n`;
+    msg += p1Lines;
+    msg += `\n💰 الإجمالي: ${p1Total.toLocaleString('en-US')} SAR\n\n`;
+    msg += `-------------------------------------\n`;
+    msg += `📋 المرحلة الثانية – أعمال التشطيب\n`;
+    msg += `-------------------------------------\n\n`;
+    msg += p2Lines;
+    msg += `\n💰 مجموع الأسعار: ${p2Total.toLocaleString('en-US')} SAR\n\n`;
+    if (notes) msg += `-------------------------------------\n📝 ملاحظات:\n${notes}\n\n`;
+    msg += `=====================================\nتم الإرسال عبر نموذج عروض الأسعار الإلكتروني`;
+    window.open(`https://wa.me/966566699139?text=${encodeURIComponent(msg)}`, '_blank');
   }
 </script>
 </body>
